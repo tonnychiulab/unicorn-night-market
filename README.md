@@ -4,13 +4,13 @@
 
 [![Play now](https://img.shields.io/badge/Play_now-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
 
-A one-file timing game set at a Taiwanese night market. A unicorn tourist orders a “rainbow set.” You serve pig blood cake, stinky tofu, and fried century egg before the courage meter runs out.
+A one-file timing game set at a Taiwanese night market. A unicorn tourist orders a “rainbow set.” You serve pig's blood cake, stinky tofu, and fried century egg before the courage meter runs out.
 
 Built to the [js13kGames 2026](https://js13kgames.com/2026/games) rules: theme **Unicorns and Rainbows**, a single offline web page, zip ≤ 13,312 bytes. The 2026 submission window is closed; this repo is the playable game.
 
 Three snacks that outsiders put on “gross” lists — and Taiwan still loves:
 
-- **Pig blood cake** — 2009 VirtualTourist No. 1 most unusual food. Looks scary. Tastes delicious.
+- **Pig's blood cake** — 2009 VirtualTourist No. 1 most unusual food. Looks scary. Tastes delicious.
 - **Century egg** — CNN (via [Liberty Times](https://news.ltn.com.tw/news/world/breakingnews/512660)) called it the world’s most disgusting food. Taiwan fries it golden.
 - **Stinky tofu** — Takeo Koizumi’s Alabaster meter: surströmming 8070 AU is No. 1; stinky tofu is No. 10 at 420 AU. Taiwan still queues.
 
@@ -36,7 +36,7 @@ Each order is one snack. The marker sweeps back and forth. Serve inside the gree
 
 | Snack | Too early | On time | Too late |
 | --- | --- | --- | --- |
-| Pig blood cake (豬血糕) | Too raw | Just right | Burnt |
+| Pig's blood cake (豬血糕) | Too raw | Just right | Burnt |
 | Stinky tofu (臭豆腐) | Too mild | Just right | Too funky |
 | Fried century egg (炸皮蛋) | Oil not ready | Intact | Egg cracks |
 
@@ -82,14 +82,14 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 [![今すぐ遊ぶ](https://img.shields.io/badge/%E4%BB%8A%E3%81%99%E3%81%90%E9%81%8A%E3%81%B6-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
 
-台湾の夜市を舞台にした、ファイル1枚のタイミングゲームです。ユニコーンの観光客が「レインボーセット」を注文します。勇気ゲージが尽きる前に、豚の血餅（豬血糕）、臭豆腐、揚げピータンを出してください。
+台湾の夜市を舞台にした、ファイル1枚のタイミングゲームです。ユニコーンの観光客が「レインボーセット」を注文します。勇気ゲージが尽きる前に、豬血糕（ジューシュエガオ）、臭豆腐、揚げピータンを出してください。
 
 [js13kGames 2026](https://js13kgames.com/2026/games) の規則に合わせて作りました。テーマは **Unicorns and Rainbows**、オフラインで動くウェブページ1枚、zip は 13,312 バイト以下。2026年の提出期間は終了しています。このリポジトリは遊べる完成版です。
 
 どれも「変・最悪」とランクされても、台湾は愛します：
 
-- **豬血糕** — 2009 VirtualTourist で世界一変わった食べ物第1位。見た目は怖い。味はうまい。
-- **ピータン** — [自由時報経由の CNN](https://news.ltn.com.tw/news/world/breakingnews/512660) が世界一まずい食べ物と報道。台湾は衣揚げにして食べる。
+- **豬血糕（ジューシュエガオ）** — 2009 VirtualTourist で世界一変わった食べ物第1位。見た目は怖い。味はうまい。
+- **ピータン** — [自由時報経由の CNN](https://news.ltn.com.tw/news/world/breakingnews/512660) が世界一まずい食べ物と報道。台湾は衣揚げ（揚げピータン）にして食べる。
 - **臭豆腐** — 小泉武夫の Alabaster：シュールストレミング 8070AU が第1位、臭豆腐は 420AU で第10位。それでも行列する。
 
 ### 今すぐ遊ぶ
@@ -102,9 +102,9 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 | おやつ | 早すぎ | 成功 | 遅すぎ |
 | --- | --- | --- | --- |
-| 豬血糕（豚の血餅） | 生焼け | ちょうどよい | 焦げ |
+| 豬血糕（ジューシュエガオ） | 生焼け | ちょうどよい | 焦げ |
 | 臭豆腐 | 薄味 | ちょうどよい | 臭すぎ |
-| 炸皮蛋（揚げピータン） | 油の温度が足りない | 殻が無事 | 皮蛋が割れた |
+| 揚げピータン | 油の温度が足りない | 殻が無事 | 皮蛋が割れた |
 
 成功するとレインボー勇気 +15、得点 +100。生焼けか薄味は −10。それ以外の失敗（時間切れを含む）は −25 で、ユニコーンが虹を吐いて後退します。勇気が 0 になると閉店です。リトライで得点と勇気は最初の値に戻ります。
 
