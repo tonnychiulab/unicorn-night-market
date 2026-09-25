@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>獨角獸夜市</title>
+<title>Unicorn Night Market</title>
 <style>
-html,body{margin:0;height:100%;background:#14081c;overflow:hidden;font-family:"PingFang TC","Microsoft JhengHei",sans-serif}
+html,body{margin:0;height:100%;background:#14081c;overflow:hidden;font-family:"Segoe UI","PingFang TC","Yu Gothic","Microsoft JhengHei",sans-serif}
 canvas{width:100%;height:100%;display:block;touch-action:none}
 </style>
 </head>
@@ -15,15 +15,57 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
 const c=document.getElementById('c'),g=c.getContext('2d');
 const W=960,H=540;
 c.width=W;c.height=H;
-const FONT='"PingFang TC","Microsoft JhengHei",sans-serif';
+const FONT='"Segoe UI","PingFang TC","Yu Gothic","Microsoft JhengHei",sans-serif';
 const snacks=[
-  {n:'豬血糕',a:.38,b:.54,L:'太生',R:'烤焦',s:.46,m:1,hue:'#7a1830'},
-  {n:'臭豆腐',a:.50,b:.70,L:'太清淡',R:'太臭',s:.62,m:1,hue:'#e6c84a'},
-  {n:'炸皮蛋',a:.28,b:.44,L:'油溫不對',R:'皮蛋破了',s:.74,m:0,hue:'#3a2a18'}
+  {a:.38,b:.54,s:.46,m:1,hue:'#7a1830'},
+  {a:.50,b:.70,s:.62,m:1,hue:'#e6c84a'},
+  {a:.28,b:.44,s:.74,m:0,hue:'#3a2a18'}
 ];
+const copy=[
+  {title:'Unicorn Night Market',score:'Score',courage:'Rainbow',sec:'s',ok:'Just right!',sign:'Market',over:'Stall closed',again:'Play again',
+   keys:'Space or Enter — serve while the marker is in the green zone.',
+   tap:'Click or tap does the same.',
+   start:'Press Space or Enter to start.',
+   name:['Pig blood cake','Stinky tofu','Fried century egg'],
+   hook:['Listed as “gross.” Taiwan still queues for them.','Looks scary. Smells bold. Tastes delicious.'],
+   blurb:[
+     ['2009 VirtualTourist: No. 1 most unusual food on Earth.','Pig blood, sticky rice, peanut powder. Scary look. Delicious chew.'],
+     ['Koizumi’s Alabaster meter: surströmming 8070 AU is No. 1.','Stinky tofu is No. 10 at 420 AU. Taiwan still fries it hot.'],
+     ['CNN (via Liberty Times): century egg, “world’s most disgusting.”','Black-green jelly egg, fried golden. Taiwan loves every bite.']
+   ],
+   left:['Too raw','Too mild','Oil not ready'],
+   right:['Burnt','Too funky','Egg cracked'],late:'Time up'},
+  {title:'獨角獸夜市',score:'分數',courage:'彩虹勇氣',sec:'秒',ok:'剛好！',sign:'夜市',over:'收攤',again:'再來一局',
+   keys:'空白鍵或 Enter — 標記進入綠色區間時端出。',
+   tap:'點擊或觸控也一樣。',
+   start:'按空白鍵或 Enter 開始。',
+   name:['豬血糕','臭豆腐','炸皮蛋'],
+   hook:['上過「最怪／最噁」榜單。台灣人照樣排隊。','看起來嚇人，聞起來很衝，吃起來超香。'],
+   blurb:[
+     ['2009 VirtualTourist：全球最怪食物第一名。','豬血混糯米、裹花生粉。看起來嚇人，咬下去超香。'],
+     ['小泉武夫 Alabaster：Surströmming 8070 AU 第 1。','臭豆腐 420 AU 排第 10。台灣人照樣炸到金黃。'],
+     ['自由時報轉 CNN：皮蛋拿下「全球最噁食物」。','黑綠凍蛋炸成金黃。台灣人每一口都愛。']
+   ],
+   left:['太生','太清淡','油溫不對'],
+   right:['烤焦','太臭','皮蛋破了'],late:'逾時'},
+  {title:'ユニコーン夜市',score:'得点',courage:'レインボー',sec:'秒',ok:'ちょうどよい！',sign:'夜市',over:'閉店',again:'もう一度',
+   keys:'Space か Enter — マーカーが緑の区間にあるとき提供。',
+   tap:'クリックやタップでも同じです。',
+   start:'Space か Enter で開始。',
+   name:['豚の血餅','臭豆腐','揚げピータン'],
+   hook:['「変・最悪」とランクされても、台湾は行列する。','見た目は衝撃。匂いは強い。味は本当にうまい。'],
+   blurb:[
+     ['2009 VirtualTourist：世界一変わった食べ物第1位。','豚の血と餅米、花生粉。怖い見た目、うまい歯ごたえ。'],
+     ['小泉武夫の Alabaster：シュールストレミング 8070AU が第1位。','臭豆腐は 420AU で第10位。台湾はそれでも揚げる。'],
+     ['自由時報経由の CNN：ピータンは「世界一まずい食べ物」。','黒緑のゼリーを衣揚げ。台湾は毎回むさぼる。']
+   ],
+   left:['生焼け','薄味','油が足りない'],
+   right:['焦げ','臭すぎ','皮蛋が割れた'],late:'時間切れ'}
+];
+const picks=[{x:560,y:58,w:110,h:32,i:0,t:'EN'},{x:680,y:58,w:120,h:32,i:1,t:'繁中'},{x:810,y:58,w:130,h:32,i:2,t:'日本語'}];
 const G=window.G={
-  state:'title',i:0,pos:0,dir:1,time:8,score:0,courage:100,
-  msg:'',mood:'ok',beat:0,audio:null
+  state:'title',lang:0,i:0,pos:0,dir:1,time:8,score:0,courage:100,
+  side:'',mood:'ok',beat:0,audio:null
 };
 const steam=[],bits=[];
 for(let n=0;n<14;n++)steam.push({x:160+Math.random()*80,y:300+Math.random()*40,v:20+Math.random()*30,r:3+Math.random()*5});
@@ -49,12 +91,21 @@ function tone(ok){
   o.connect(v);v.connect(G.audio.destination);
   o.start(t);o.stop(t+(ok ? .16 : .32));
 }
+function pack(){return copy[G.lang];}
+function line(){
+  const id=G.i%3,p=pack();
+  if(G.side==='ok')return p.ok;
+  if(G.side==='T')return p.late;
+  if(G.side==='L')return p.left[id];
+  if(G.side==='R')return p.right[id];
+  return '';
+}
 function boot(){
-  G.score=0;G.courage=100;G.i=0;G.mood='ok';G.msg='';bits.length=0;
+  G.score=0;G.courage=100;G.i=0;G.mood='ok';G.side='';bits.length=0;
   begin();
 }
 function begin(){
-  G.state='cook';G.pos=0;G.dir=1;G.time=8;G.msg='';G.mood='ok';bits.length=0;
+  G.state='cook';G.pos=0;G.dir=1;G.time=8;G.side='';G.mood='ok';bits.length=0;
 }
 function spit(){
   bits.length=0;
@@ -65,14 +116,19 @@ function spit(){
 }
 function win(){
   G.courage=Math.min(100,G.courage+15);
-  G.score+=100;G.mood='ok';G.msg='剛好！';
+  G.score+=100;G.mood='ok';G.side='ok';
   G.state='beat';G.beat=1.2;tone(1);
 }
-function lose(reason,mild){
+function lose(side,mild){
   G.courage=Math.max(0,G.courage+(mild?-10:-25));
-  G.mood=mild?'bored':'spit';G.msg=reason;
+  G.mood=mild?'bored':'spit';G.side=side;
   if(!mild)spit();
   G.state='beat';G.beat=1.25;tone(0);
+}
+function setLang(i){
+  G.lang=i;
+  document.documentElement.lang=['en','zh-Hant','ja'][i];
+  document.title=pack().title;
 }
 function act(){
   ensureAudio();
@@ -80,13 +136,26 @@ function act(){
   if(G.state!=='cook')return;
   const s=snacks[G.i%3];
   if(G.pos>=s.a&&G.pos<=s.b){win();return;}
-  if(G.pos<s.a)lose(s.L,s.m);else lose(s.R,0);
+  if(G.pos<s.a)lose('L',s.m);else lose('R',0);
 }
 addEventListener('keydown',e=>{
   if(e.repeat)return;
+  if(G.state==='title'&&e.code==='Digit1'){setLang(0);return;}
+  if(G.state==='title'&&e.code==='Digit2'){setLang(1);return;}
+  if(G.state==='title'&&e.code==='Digit3'){setLang(2);return;}
   if(e.code==='Space'||e.code==='Enter'){e.preventDefault();act();}
 });
-c.addEventListener('pointerup',e=>{e.preventDefault();act();});
+c.addEventListener('pointerup',e=>{
+  e.preventDefault();
+  if(G.state==='title'){
+    const r=c.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width*W,y=(e.clientY-r.top)/r.height*H;
+    for(const b of picks){
+      if(x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h){setLang(b.i);return;}
+    }
+  }
+  act();
+});
 
 function tick(dt){
   for(const p of steam){p.y-=p.v*dt;if(p.y<250)p.y=340;}
@@ -97,7 +166,7 @@ function tick(dt){
     if(G.pos>=1){G.pos=1;G.dir=-1;}
     if(G.pos<=0){G.pos=0;G.dir=1;}
     G.time-=dt;
-    if(G.time<=0)lose('逾時',0);
+    if(G.time<=0)lose('T',0);
   }else if(G.state==='beat'){
     G.beat-=dt;
     if(G.beat<=0){
@@ -106,12 +175,13 @@ function tick(dt){
     }
   }
 }
-function dish(s){
-  if(s.n==='豬血糕'){
+function dish(id){
+  const s=snacks[id];
+  if(id===0){
     g.fillStyle='#4a1018';g.fillRect(150,368,120,18);
     g.fillStyle=s.hue;g.fillRect(168,348,78,26);
     g.fillStyle='#2a0a10';g.fillRect(176,354,62,6);
-  }else if(s.n==='臭豆腐'){
+  }else if(id===1){
     g.fillStyle='#c9a227';g.fillRect(168,340,84,46);
     g.strokeStyle='#9ad26a';g.lineWidth=2;
     g.beginPath();g.arc(190,330,10,0,4);g.stroke();
@@ -120,7 +190,7 @@ function dish(s){
     g.fillStyle='#f0a020';g.beginPath();g.ellipse(214,372,46,16,0,0,7);g.fill();
     g.fillStyle=s.hue;g.beginPath();g.ellipse(214,358,26,20,0,0,7);g.fill();
     g.strokeStyle='#d8d0c4';g.stroke();
-    if(G.msg==='皮蛋破了'){g.strokeStyle='#111';g.beginPath();g.moveTo(200,350);g.lineTo(228,368);g.stroke();}
+    if(G.side==='R'){g.strokeStyle='#111';g.beginPath();g.moveTo(200,350);g.lineTo(228,368);g.stroke();}
   }
 }
 function unicorn(){
@@ -155,12 +225,12 @@ function draw(){
   g.fillStyle='#c4552a';g.fillRect(70,292,560,46);
   g.fillStyle='#5c2e1a';g.fillRect(70,338,560,150);
   g.fillStyle='#2a0a12';g.fillRect(90,214,150,64);
-  txt('夜市',118,258,40,'#ffd36a');
+  txt(pack().sign,112,258,32,'#ffd36a');
   for(const p of steam){
     g.fillStyle='rgba(255,244,220,.35)';
     g.beginPath();g.arc(p.x,p.y,p.r,0,7);g.fill();
   }
-  if(G.state!=='title')dish(snacks[G.i%3]);
+  if(G.state!=='title')dish(G.i%3);
   unicorn();
   for(const b of bits){
     if(b.life<=0)continue;
@@ -169,31 +239,45 @@ function draw(){
     g.beginPath();g.arc(b.x,b.y,12,0,7);g.fill();
     g.globalAlpha=1;
   }
-  txt('分數 '+G.score,24,40,22,'#ffe6c2');
-  txt('彩虹勇氣',250,36,18,'#ffe6c2');
+  const p=pack();
+  txt(p.score+' '+G.score,24,40,22,'#ffe6c2');
+  txt(p.courage,250,36,18,'#ffe6c2');
   for(let n=0;n<10;n++){
     g.fillStyle=n<Math.ceil(G.courage/10)?['#f44','#f80','#fd4','#6e4','#4cf','#a4f','#f6f','#f66','#fa4','#ff4'][n]:'#3a2a38';
     g.fillRect(380+n*22,18,16,16);
   }
   if(G.state==='cook'||G.state==='beat'){
     const s=snacks[G.i%3];
-    txt(s.n,70,430,36,'#fff4d2');
-    txt(Math.max(0,Math.ceil(G.time))+' 秒',470,430,28,'#ffd36a');
+    const lines=p.blurb[G.i%3];
+    g.fillStyle='rgba(20,8,20,.72)';g.fillRect(70,168,520,78);
+    txt(lines[0],84,198,15,'#ffe6c2');
+    txt(lines[1],84,222,15,'#ffd6a8');
+    txt(p.name[G.i%3],70,400,32,'#fff4d2');
+    txt(Math.max(0,Math.ceil(G.time))+' '+p.sec,430,400,26,'#ffd36a');
+    const said=line();
+    if(said)txt(said,70,436,24,G.mood==='ok'?'#b6ff9a':'#ffb0c8');
     const bx=70,by=470,bw=520,bh=28;
     g.fillStyle='#2a2030';g.fillRect(bx,by,bw,bh);
     g.fillStyle='#3ecf7a';g.fillRect(bx+s.a*bw,by,(s.b-s.a)*bw,bh);
     g.fillStyle='#fff';g.fillRect(bx+G.pos*bw-4,by-8,8,bh+16);
-    if(G.msg)txt(G.msg,250,400,28,G.mood==='ok'?'#b6ff9a':'#ffb0c8');
   }
   if(G.state==='title'){
-    txt('獨角獸夜市',340,410,52,'#fff6e4','center');
-    txt('按空白鍵或點畫面，在標記進入區間時端出',340,458,20,'#ffd6a8','center');
+    txt(p.title,350,348,28,'#fff6e4','center');
+    txt(p.hook[0],350,382,14,'#ffd6a8','center');
+    txt(p.hook[1],350,402,14,'#ffd6a8','center');
+    txt(p.keys,350,430,14,'#ffe6c2','center');
+    txt(p.start,350,462,18,'#fff','center');
+    for(const b of picks){
+      g.fillStyle=G.lang===b.i?'#c4552a':'#2a2030';
+      g.fillRect(b.x,b.y,b.w,b.h);
+      txt(b.t,b.x+b.w/2,b.y+22,16,'#fff6e4','center');
+    }
   }
   if(G.state==='over'){
     g.fillStyle='rgba(16,6,20,.72)';g.fillRect(180,150,600,250);
-    txt('收攤',480,230,48,'#fff6e4','center');
-    txt('分數 '+G.score,480,290,32,'#ffd36a','center');
-    txt('再來一局',480,350,28,'#fff','center');
+    txt(p.over,480,230,48,'#fff6e4','center');
+    txt(p.score+' '+G.score,480,290,32,'#ffd36a','center');
+    txt(p.again,480,350,28,'#fff','center');
   }
 }
 let last=0;

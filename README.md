@@ -2,20 +2,35 @@
 
 [English](#english) · [正體中文](#正體中文) · [日本語](#日本語)
 
+[![Play now](https://img.shields.io/badge/Play_now-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+
 A one-file timing game set at a Taiwanese night market. A unicorn tourist orders a “rainbow set.” You serve pig blood cake, stinky tofu, and fried century egg before the courage meter runs out.
 
 Built to the [js13kGames 2026](https://js13kgames.com/2026/games) rules: theme **Unicorns and Rainbows**, a single offline web page, zip ≤ 13,312 bytes. The 2026 submission window is closed; this repo is the playable game.
 
+Three snacks that outsiders put on “gross” lists — and Taiwan still loves:
+
+- **Pig blood cake** — 2009 VirtualTourist No. 1 most unusual food. Looks scary. Tastes delicious.
+- **Century egg** — CNN (via [Liberty Times](https://news.ltn.com.tw/news/world/breakingnews/512660)) called it the world’s most disgusting food. Taiwan fries it golden.
+- **Stinky tofu** — Takeo Koizumi’s Alabaster meter: surströmming 8070 AU is No. 1; stinky tofu is No. 10 at 420 AU. Taiwan still queues.
+
 ## English
 
-### Play
+### Play now
 
-Open `index.html` in a browser. No install, no network, no extra assets.
+[![Play now](https://img.shields.io/badge/Play_now-open_the_stall-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+
+Open the live build on GitHub Pages: [https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+
+Or open `index.html` in a browser. The game starts in English. No install, no extra assets.
+
+The title screen explains the keyboard before the stall opens.
 
 | Action | Control |
 | --- | --- |
+| Language, title screen only | 1 English, 2 繁體中文, 3 日本語, or click EN / 繁中 / 日本語 |
 | Start, serve, play again | Space, Enter, click, or tap |
-| Hit the green zone | Release the serve while the marker is inside it |
+| Hit the green zone | Serve while the marker is inside it |
 
 Each order is one snack. The marker sweeps back and forth. Serve inside the green zone to succeed.
 
@@ -33,13 +48,23 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 ## 正體中文
 
+[![立即玩](https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E7%8E%A9-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+
 台灣夜市的單檔時機遊戲。獨角獸遊客點了一份「彩虹套餐」，你要在勇氣條歸零前端出豬血糕、臭豆腐和炸皮蛋。
 
 依 [js13kGames 2026](https://js13kgames.com/2026/games) 的規則製作：主題是 **Unicorns and Rainbows**，單一可離線網頁，zip 不超過 13,312 bytes。2026 投稿窗口已關閉，這個 repo 是可玩的成品。
 
-### 怎麼玩
+三道小吃都上過「最怪／最噁」榜單，台灣人照樣愛：
 
-用瀏覽器打開 `index.html`。不用安裝，也不用網路。
+- **豬血糕** — 2009 VirtualTourist 全球最怪食物第一名。看起來嚇人，吃起來超香。
+- **皮蛋** — [自由時報轉 CNN](https://news.ltn.com.tw/news/world/breakingnews/512660) 說是全球最噁食物。台灣人炸成金黃照樣吃。
+- **臭豆腐** — 小泉武夫 Alabaster：Surströmming 8070 AU 第 1，臭豆腐 420 AU 第 10。台灣夜市照樣排隊。
+
+### 立即玩
+
+線上版：[https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+
+也可以用瀏覽器打開 `index.html`。遊戲預設是英文。不用安裝。標題畫面會先說明鍵盤，再按空白鍵或 Enter 才開始。按 1 英文、2 繁體中文、3 日本語，或點 EN / 繁中 / 日本語。
 
 空白鍵、Enter、點擊或觸控都可以開始、端出、再來一局。標記左右來回，在它進入綠色區間時端出。
 
@@ -55,13 +80,23 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 ## 日本語
 
+[![今すぐ遊ぶ](https://img.shields.io/badge/%E4%BB%8A%E3%81%99%E3%81%90%E9%81%8A%E3%81%B6-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+
 台湾の夜市を舞台にした、ファイル1枚のタイミングゲームです。ユニコーンの観光客が「レインボーセット」を注文します。勇気ゲージが尽きる前に、豚の血餅（豬血糕）、臭豆腐、揚げピータンを出してください。
 
 [js13kGames 2026](https://js13kgames.com/2026/games) の規則に合わせて作りました。テーマは **Unicorns and Rainbows**、オフラインで動くウェブページ1枚、zip は 13,312 バイト以下。2026年の提出期間は終了しています。このリポジトリは遊べる完成版です。
 
-### 遊び方
+どれも「変・最悪」とランクされても、台湾は愛します：
 
-ブラウザで `index.html` を開きます。インストールも通信も不要です。
+- **豬血糕** — 2009 VirtualTourist で世界一変わった食べ物第1位。見た目は怖い。味はうまい。
+- **ピータン** — [自由時報経由の CNN](https://news.ltn.com.tw/news/world/breakingnews/512660) が世界一まずい食べ物と報道。台湾は衣揚げにして食べる。
+- **臭豆腐** — 小泉武夫の Alabaster：シュールストレミング 8070AU が第1位、臭豆腐は 420AU で第10位。それでも行列する。
+
+### 今すぐ遊ぶ
+
+公開ページ：[https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+
+またはブラウザで `index.html` を開きます。初期言語は英語です。インストールも不要です。タイトル画面でキーボード操作を説明してから、Space か Enter で開始します。1 英語、2 繁體中文、3 日本語、または EN / 繁中 / 日本語 をクリックします。
 
 スペース、Enter、クリック、タップで開始・提供・リトライができます。マーカーが左右に往復するので、緑の区間に入った瞬間に出してください。
 
