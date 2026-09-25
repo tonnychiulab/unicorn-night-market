@@ -2,11 +2,17 @@
 
 [English](#english) · [正體中文](#正體中文) · [日本語](#日本語)
 
-[![Play now](https://img.shields.io/badge/Play_now-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![Play now v2](https://img.shields.io/badge/Play_now_v2-13KB_procedural-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![Play v3](https://img.shields.io/badge/Play_v3-realistic_food_photos-7a1830?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/illustrated.html)
 
 A one-file timing game set at a Taiwanese night market. A unicorn tourist orders a “rainbow set.” You serve pig's blood cake, stinky tofu, and fried century egg before the courage meter runs out.
 
 Built to the [js13kGames 2026](https://js13kgames.com/2026/games) rules: theme **Unicorns and Rainbows**, a single offline web page, zip ≤ 13,312 bytes. The 2026 submission window is closed; this repo is the playable game.
+
+**Versions**
+
+- **v2** — procedural 13KB build (`index.html`). No external food photos.
+- **v3** — illustrated build (`illustrated.html`) with realistic photos of pig's blood cake, stinky tofu, and fried century egg.
 
 Three snacks that outsiders put on “gross” lists — and Taiwan still loves:
 
@@ -18,11 +24,13 @@ Three snacks that outsiders put on “gross” lists — and Taiwan still loves:
 
 ### Play now
 
-[![Play now](https://img.shields.io/badge/Play_now-open_the_stall-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![Play now v2](https://img.shields.io/badge/Play_now_v2-13KB_procedural-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![Play v3](https://img.shields.io/badge/Play_v3-realistic_food_photos-7a1830?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/illustrated.html)
 
-Open the live build on GitHub Pages: [https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+- **v2 (default):** [https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/) — procedural art, contest-size zip.
+- **v3 (illustrated):** [https://tonnychiulab.github.io/unicorn-night-market/illustrated.html](https://tonnychiulab.github.io/unicorn-night-market/illustrated.html) — same rules, with realistic snack photos on the stall.
 
-Or open `index.html` in a browser. The game starts in English. No install, no extra assets.
+Or open `index.html` / `illustrated.html` in a browser. The game starts in English. No install.
 
 The title screen explains the keyboard before the stall opens.
 
@@ -48,11 +56,17 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 ## 正體中文
 
-[![立即玩](https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E7%8E%A9-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![立即玩 v2](https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E7%8E%A9_v2-13KB_%E7%A8%8B%E5%BC%8F%E7%B9%AA%E5%9C%96-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![玩 v3](https://img.shields.io/badge/%E7%8E%A9_v3-%E5%AF%A6%E7%89%A9%E9%A3%9F%E7%89%A9%E5%9C%96-7a1830?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/illustrated.html)
 
 台灣夜市的單檔時機遊戲。獨角獸遊客點了一份「彩虹套餐」，你要在勇氣條歸零前端出豬血糕、臭豆腐和炸皮蛋。
 
 依 [js13kGames 2026](https://js13kgames.com/2026/games) 的規則製作：主題是 **Unicorns and Rainbows**，單一可離線網頁，zip 不超過 13,312 bytes。2026 投稿窗口已關閉，這個 repo 是可玩的成品。
+
+**版本**
+
+- **v2** — 手續繪 13KB 版（`index.html`），不含外部食物照片。
+- **v3** — 繪圖版（`illustrated.html`），攤位顯示接近實物的豬血糕、臭豆腐、炸皮蛋照片。
 
 三道小吃都上過「最怪／最噁」榜單，台灣人照樣愛：
 
@@ -62,9 +76,10 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 ### 立即玩
 
-線上版：[https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+- **v2：** [https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+- **v3（實物食物圖）：** [https://tonnychiulab.github.io/unicorn-night-market/illustrated.html](https://tonnychiulab.github.io/unicorn-night-market/illustrated.html)
 
-也可以用瀏覽器打開 `index.html`。遊戲預設是英文。不用安裝。標題畫面會先說明鍵盤，再按空白鍵或 Enter 才開始。按 1 英文、2 繁體中文、3 日本語，或點 EN / 繁中 / 日本語。
+也可以用瀏覽器打開 `index.html` 或 `illustrated.html`。遊戲預設是英文。不用安裝。標題畫面會先說明鍵盤，再按空白鍵或 Enter 才開始。按 1 英文、2 繁體中文、3 日本語，或點 EN / 繁中 / 日本語。
 
 空白鍵、Enter、點擊或觸控都可以開始、端出、再來一局。標記左右來回，在它進入綠色區間時端出。
 
@@ -80,11 +95,17 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 ## 日本語
 
-[![今すぐ遊ぶ](https://img.shields.io/badge/%E4%BB%8A%E3%81%99%E3%81%90%E9%81%8A%E3%81%B6-GitHub_Pages-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![今すぐ遊ぶ v2](https://img.shields.io/badge/%E4%BB%8A%E3%81%99%E3%81%90%E9%81%8A%E3%81%B6_v2-13KB-c4552a?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/)
+[![遊ぶ v3](https://img.shields.io/badge/%E9%81%8A%E3%81%B6_v3-%E5%AE%9F%E7%89%A9%E9%A3%9F%E5%93%81%E5%86%99%E7%9C%9F-7a1830?style=for-the-badge&logo=github)](https://tonnychiulab.github.io/unicorn-night-market/illustrated.html)
 
 台湾の夜市を舞台にした、ファイル1枚のタイミングゲームです。ユニコーンの観光客が「レインボーセット」を注文します。勇気ゲージが尽きる前に、豬血糕（ジューシュエガオ）、臭豆腐、揚げピータンを出してください。
 
 [js13kGames 2026](https://js13kgames.com/2026/games) の規則に合わせて作りました。テーマは **Unicorns and Rainbows**、オフラインで動くウェブページ1枚、zip は 13,312 バイト以下。2026年の提出期間は終了しています。このリポジトリは遊べる完成版です。
+
+**バージョン**
+
+- **v2** — 手続き描画の 13KB 版（`index.html`）。外部の食べ物写真なし。
+- **v3** — イラスト版（`illustrated.html`）。豬血糕・臭豆腐・揚げピータンの実物に近い写真を表示。
 
 どれも「変・最悪」とランクされても、台湾は愛します：
 
@@ -94,9 +115,10 @@ A good serve adds 15 rainbow courage and 100 points. Too raw or too mild costs 1
 
 ### 今すぐ遊ぶ
 
-公開ページ：[https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+- **v2：** [https://tonnychiulab.github.io/unicorn-night-market/](https://tonnychiulab.github.io/unicorn-night-market/)
+- **v3（実物の食べ物写真）：** [https://tonnychiulab.github.io/unicorn-night-market/illustrated.html](https://tonnychiulab.github.io/unicorn-night-market/illustrated.html)
 
-またはブラウザで `index.html` を開きます。初期言語は英語です。インストールも不要です。タイトル画面でキーボード操作を説明してから、Space か Enter で開始します。1 英語、2 繁體中文、3 日本語、または EN / 繁中 / 日本語 をクリックします。
+またはブラウザで `index.html` / `illustrated.html` を開きます。初期言語は英語です。インストールも不要です。タイトル画面でキーボード操作を説明してから、Space か Enter で開始します。1 英語、2 繁體中文、3 日本語、または EN / 繁中 / 日本語 をクリックします。
 
 スペース、Enter、クリック、タップで開始・提供・リトライができます。マーカーが左右に往復するので、緑の区間に入った瞬間に出してください。
 

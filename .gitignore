@@ -5,3 +5,5 @@ node_modules/
 .DS_Store
 Thumbs.db
 assets/seoul-market/
+.chrome-tmp/
+assets/snacks/_v3-check.png

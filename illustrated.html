@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unicorn Night Market v2</title>
+<title>Unicorn Night Market v3</title>
 <style>
 html,body{margin:0;height:100%;background:#14081c;overflow:hidden;font-family:"Segoe UI","PingFang TC","Yu Gothic","Microsoft JhengHei",sans-serif}
 canvas{width:100%;height:100%;display:block;touch-action:none}
@@ -63,12 +63,18 @@ const copy=[
    right:['焦げ','臭すぎ','皮蛋が割れた'],late:'時間切れ'}
 ];
 const picks=[{x:560,y:58,w:110,h:32,i:0,t:'EN'},{x:680,y:58,w:120,h:32,i:1,t:'繁中'},{x:810,y:58,w:130,h:32,i:2,t:'日本語'}];
+const VER='v3';
 const G=window.G={
   state:'title',lang:0,i:0,pos:0,dir:1,time:8,score:0,courage:100,
-  side:'',mood:'ok',beat:0,audio:null
+  side:'',mood:'ok',beat:0,audio:null,ponyT:0,ponyF:0,seoul:false
 };
 const steam=[],bits=[];
 for(let n=0;n<14;n++)steam.push({x:160+Math.random()*80,y:300+Math.random()*40,v:20+Math.random()*30,r:3+Math.random()*5});
+const snackSrc=['assets/snacks/pig-blood-cake.png','assets/snacks/stinky-tofu.png','assets/snacks/fried-century-egg.png'];
+const snackImg=snackSrc.map(src=>{const im=new Image();im.src=src;return im;});
+const ponyImg=[new Image(),new Image()];
+ponyImg[0].src='assets/pony/poney_1.png';ponyImg[1].src='assets/pony/poney_2.png';
+fetch('assets/seoul-market/').then(r=>{G.seoul=r.ok;}).catch(()=>{G.seoul=false;});
 
 function txt(s,x,y,size,color,align){
   g.fillStyle=color;g.font=size+'px '+FONT;g.textAlign=align||'left';g.fillText(s,x,y);
@@ -158,6 +164,7 @@ c.addEventListener('pointerup',e=>{
 });
 
 function tick(dt){
+  G.ponyT+=dt;if(G.ponyT>=.35){G.ponyT=0;G.ponyF^=1;}
   for(const p of steam){p.y-=p.v*dt;if(p.y<250)p.y=340;}
   for(const b of bits){b.x+=b.vx*dt;b.y+=b.vy*dt;b.vy+=36*dt;b.life-=dt;}
   if(G.state==='cook'){
@@ -176,38 +183,26 @@ function tick(dt){
   }
 }
 function dish(id){
-  const s=snacks[id];
-  if(id===0){
-    g.fillStyle='#4a1018';g.fillRect(150,368,120,18);
-    g.fillStyle=s.hue;g.fillRect(168,348,78,26);
-    g.fillStyle='#2a0a10';g.fillRect(176,354,62,6);
-  }else if(id===1){
-    g.fillStyle='#c9a227';g.fillRect(168,340,84,46);
-    g.strokeStyle='#9ad26a';g.lineWidth=2;
-    g.beginPath();g.arc(190,330,10,0,4);g.stroke();
-    g.beginPath();g.arc(220,322,12,0,4);g.stroke();
+  const im=snackImg[id];
+  const dx=150,dy=278,dw=200,dh=200;
+  if(im&&im.complete&&im.naturalWidth){
+    g.imageSmoothingEnabled=true;
+    g.drawImage(im,dx,dy,dw,dh);
   }else{
-    g.fillStyle='#f0a020';g.beginPath();g.ellipse(214,372,46,16,0,0,7);g.fill();
-    g.fillStyle=s.hue;g.beginPath();g.ellipse(214,358,26,20,0,0,7);g.fill();
-    g.strokeStyle='#d8d0c4';g.stroke();
-    if(G.side==='R'){g.strokeStyle='#111';g.beginPath();g.moveTo(200,350);g.lineTo(228,368);g.stroke();}
+    const s=snacks[id];
+    g.fillStyle=s.hue;g.fillRect(168,348,100,50);
   }
 }
 function unicorn(){
-  const x=G.mood==='spit'?790:720,y=300;
-  g.fillStyle='#f6f2ff';
-  g.fillRect(x-30,y+36,14,48);g.fillRect(x+24,y+36,14,48);
-  g.beginPath();g.ellipse(x,y,78,48,0,0,7);g.fill();
-  g.beginPath();g.ellipse(x-78,y-28,40,32,0,0,7);g.fill();
-  g.fillStyle='#f7b6ea';
-  g.beginPath();g.ellipse(x+10,y-36,36,18,.5,0,7);g.fill();
-  g.fillStyle='#ffd56a';
-  g.beginPath();g.moveTo(x-104,y-48);g.lineTo(x-90,y-102);g.lineTo(x-74,y-44);g.fill();
-  g.fillStyle='#241828';
-  if(G.mood==='bored'){g.fillRect(x-100,y-32,18,4);}
-  else{g.beginPath();g.arc(x-90,y-32,5,0,7);g.fill();}
-  g.fillStyle='#ff8ab0';
-  g.beginPath();g.arc(x-108,y-10,5,0,7);g.fill();
+  const x=G.mood==='spit'?760:690,y=220;
+  const im=ponyImg[G.ponyF&1];
+  if(im&&im.complete&&im.naturalWidth){
+    g.imageSmoothingEnabled=false;
+    g.drawImage(im,x,y,180,180);
+  }else{
+    g.fillStyle='#f6f2ff';
+    g.beginPath();g.ellipse(x+90,y+90,70,48,0,0,7);g.fill();
+  }
 }
 function draw(){
   g.clearRect(0,0,W,H);
@@ -240,30 +235,33 @@ function draw(){
     g.globalAlpha=1;
   }
   const p=pack();
-  txt('v2',920,36,20,'#ffd36a','right');
+  txt(VER,920,36,20,'#ffd36a','right');
   txt(p.score+' '+G.score,24,40,22,'#ffe6c2');
   txt(p.courage,250,36,18,'#ffe6c2');
   for(let n=0;n<10;n++){
     g.fillStyle=n<Math.ceil(G.courage/10)?['#f44','#f80','#fd4','#6e4','#4cf','#a4f','#f6f','#f66','#fa4','#ff4'][n]:'#3a2a38';
     g.fillRect(380+n*22,18,16,16);
   }
+  if(!G.seoul){
+    txt('Seoul Market mini pack: glowcompany.itch.io/seoul-market-mini',24,520,12,'#a99');
+  }
   if(G.state==='cook'||G.state==='beat'){
     const s=snacks[G.i%3];
     const lines=p.blurb[G.i%3];
-    g.fillStyle='rgba(20,8,20,.72)';g.fillRect(70,168,520,78);
-    txt(lines[0],84,198,15,'#ffe6c2');
-    txt(lines[1],84,222,15,'#ffd6a8');
-    txt(p.name[G.i%3],70,400,32,'#fff4d2');
-    txt(Math.max(0,Math.ceil(G.time))+' '+p.sec,430,400,26,'#ffd36a');
+    g.fillStyle='rgba(20,8,20,.72)';g.fillRect(360,168,520,78);
+    txt(lines[0],374,198,15,'#ffe6c2');
+    txt(lines[1],374,222,15,'#ffd6a8');
+    txt(p.name[G.i%3],360,400,28,'#fff4d2');
+    txt(Math.max(0,Math.ceil(G.time))+' '+p.sec,720,400,26,'#ffd36a');
     const said=line();
-    if(said)txt(said,70,436,24,G.mood==='ok'?'#b6ff9a':'#ffb0c8');
-    const bx=70,by=470,bw=520,bh=28;
+    if(said)txt(said,360,436,22,G.mood==='ok'?'#b6ff9a':'#ffb0c8');
+    const bx=360,by=470,bw=520,bh=28;
     g.fillStyle='#2a2030';g.fillRect(bx,by,bw,bh);
     g.fillStyle='#3ecf7a';g.fillRect(bx+s.a*bw,by,(s.b-s.a)*bw,bh);
     g.fillStyle='#fff';g.fillRect(bx+G.pos*bw-4,by-8,8,bh+16);
   }
   if(G.state==='title'){
-    txt(p.title+'  v2',350,348,28,'#fff6e4','center');
+    txt(p.title+'  '+VER,350,348,28,'#fff6e4','center');
     txt(p.hook[0],350,382,14,'#ffd6a8','center');
     txt(p.hook[1],350,402,14,'#ffd6a8','center');
     txt(p.keys,350,430,14,'#ffe6c2','center');
@@ -287,6 +285,7 @@ function loop(t){
   tick(dt);draw();requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
+if(/[?&]demo=1\b/.test(location.search))setTimeout(()=>{boot();},400);
 </script>
 </body>
 </html>
