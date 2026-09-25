@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>獨角獸夜市</title>
+<style>
+html,body{margin:0;height:100%;background:#14081c;overflow:hidden;font-family:"PingFang TC","Microsoft JhengHei",sans-serif}
+canvas{width:100%;height:100%;display:block;touch-action:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const c=document.getElementById('c'),g=c.getContext('2d');
+const W=960,H=540;
+c.width=W;c.height=H;
+const FONT='"PingFang TC","Microsoft JhengHei",sans-serif';
+const snacks=[
+  {n:'豬血糕',a:.38,b:.54,L:'太生',R:'烤焦',s:.46,m:1,hue:'#7a1830'},
+  {n:'臭豆腐',a:.50,b:.70,L:'太清淡',R:'太臭',s:.62,m:1,hue:'#e6c84a'},
+  {n:'炸皮蛋',a:.28,b:.44,L:'油溫不對',R:'皮蛋破了',s:.74,m:0,hue:'#3a2a18'}
+];
+const G=window.G={
+  state:'title',i:0,pos:0,dir:1,time:8,score:0,courage:100,
+  msg:'',mood:'ok',beat:0,audio:null
+};
+const steam=[],bits=[];
+for(let n=0;n<14;n++)steam.push({x:160+Math.random()*80,y:300+Math.random()*40,v:20+Math.random()*30,r:3+Math.random()*5});
+
+function txt(s,x,y,size,color,align){
+  g.fillStyle=color;g.font=size+'px '+FONT;g.textAlign=align||'left';g.fillText(s,x,y);
+}
+function ensureAudio(){
+  if(!G.audio){
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(AC)G.audio=new AC();
+  }
+  if(G.audio&&G.audio.state==='suspended')G.audio.resume();
+}
+function tone(ok){
+  if(!G.audio)return;
+  const t=G.audio.currentTime,o=G.audio.createOscillator(),v=G.audio.createGain();
+  o.type=ok?'square':'sawtooth';
+  o.frequency.setValueAtTime(ok?720:280,t);
+  if(!ok)o.frequency.exponentialRampToValueAtTime(70,t+.28);
+  v.gain.setValueAtTime(.07,t);
+  v.gain.exponentialRampToValueAtTime(.001,t+(ok ? .14 : .3));
+  o.connect(v);v.connect(G.audio.destination);
+  o.start(t);o.stop(t+(ok ? .16 : .32));
+}
+function boot(){
+  G.score=0;G.courage=100;G.i=0;G.mood='ok';G.msg='';bits.length=0;
+  begin();
+}
+function begin(){
+  G.state='cook';G.pos=0;G.dir=1;G.time=8;G.msg='';G.mood='ok';bits.length=0;
+}
+function spit(){
+  bits.length=0;
+  for(let n=0;n<16;n++)bits.push({
+    x:620,y:280,vx:-50-Math.random()*40,vy:-20+Math.random()*16,
+    h:(n*47)%360,life:2.2
+  });
+}
+function win(){
+  G.courage=Math.min(100,G.courage+15);
+  G.score+=100;G.mood='ok';G.msg='剛好！';
+  G.state='beat';G.beat=1.2;tone(1);
+}
+function lose(reason,mild){
+  G.courage=Math.max(0,G.courage+(mild?-10:-25));
+  G.mood=mild?'bored':'spit';G.msg=reason;
+  if(!mild)spit();
+  G.state='beat';G.beat=1.25;tone(0);
+}
+function act(){
+  ensureAudio();
+  if(G.state==='title'||G.state==='over'){boot();return;}
+  if(G.state!=='cook')return;
+  const s=snacks[G.i%3];
+  if(G.pos>=s.a&&G.pos<=s.b){win();return;}
+  if(G.pos<s.a)lose(s.L,s.m);else lose(s.R,0);
+}
+addEventListener('keydown',e=>{
+  if(e.repeat)return;
+  if(e.code==='Space'||e.code==='Enter'){e.preventDefault();act();}
+});
+c.addEventListener('pointerup',e=>{e.preventDefault();act();});
+
+function tick(dt){
+  for(const p of steam){p.y-=p.v*dt;if(p.y<250)p.y=340;}
+  for(const b of bits){b.x+=b.vx*dt;b.y+=b.vy*dt;b.vy+=36*dt;b.life-=dt;}
+  if(G.state==='cook'){
+    const s=snacks[G.i%3];
+    G.pos+=G.dir*s.s*dt;
+    if(G.pos>=1){G.pos=1;G.dir=-1;}
+    if(G.pos<=0){G.pos=0;G.dir=1;}
+    G.time-=dt;
+    if(G.time<=0)lose('逾時',0);
+  }else if(G.state==='beat'){
+    G.beat-=dt;
+    if(G.beat<=0){
+      if(G.courage<=0)G.state='over';
+      else{G.i++;begin();}
+    }
+  }
+}
+function dish(s){
+  if(s.n==='豬血糕'){
+    g.fillStyle='#4a1018';g.fillRect(150,368,120,18);
+    g.fillStyle=s.hue;g.fillRect(168,348,78,26);
+    g.fillStyle='#2a0a10';g.fillRect(176,354,62,6);
+  }else if(s.n==='臭豆腐'){
+    g.fillStyle='#c9a227';g.fillRect(168,340,84,46);
+    g.strokeStyle='#9ad26a';g.lineWidth=2;
+    g.beginPath();g.arc(190,330,10,0,4);g.stroke();
+    g.beginPath();g.arc(220,322,12,0,4);g.stroke();
+  }else{
+    g.fillStyle='#f0a020';g.beginPath();g.ellipse(214,372,46,16,0,0,7);g.fill();
+    g.fillStyle=s.hue;g.beginPath();g.ellipse(214,358,26,20,0,0,7);g.fill();
+    g.strokeStyle='#d8d0c4';g.stroke();
+    if(G.msg==='皮蛋破了'){g.strokeStyle='#111';g.beginPath();g.moveTo(200,350);g.lineTo(228,368);g.stroke();}
+  }
+}
+function unicorn(){
+  const x=G.mood==='spit'?790:720,y=300;
+  g.fillStyle='#f6f2ff';
+  g.fillRect(x-30,y+36,14,48);g.fillRect(x+24,y+36,14,48);
+  g.beginPath();g.ellipse(x,y,78,48,0,0,7);g.fill();
+  g.beginPath();g.ellipse(x-78,y-28,40,32,0,0,7);g.fill();
+  g.fillStyle='#f7b6ea';
+  g.beginPath();g.ellipse(x+10,y-36,36,18,.5,0,7);g.fill();
+  g.fillStyle='#ffd56a';
+  g.beginPath();g.moveTo(x-104,y-48);g.lineTo(x-90,y-102);g.lineTo(x-74,y-44);g.fill();
+  g.fillStyle='#241828';
+  if(G.mood==='bored'){g.fillRect(x-100,y-32,18,4);}
+  else{g.beginPath();g.arc(x-90,y-32,5,0,7);g.fill();}
+  g.fillStyle='#ff8ab0';
+  g.beginPath();g.arc(x-108,y-10,5,0,7);g.fill();
+}
+function draw(){
+  g.clearRect(0,0,W,H);
+  const sky=g.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,'#1a0c2e');sky.addColorStop(1,'#3a1428');
+  g.fillStyle=sky;g.fillRect(0,0,W,H);
+  g.fillStyle='#ffe6b0';g.beginPath();g.arc(110,78,34,0,7);g.fill();
+  g.strokeStyle='#6a4a32';g.lineWidth=3;g.beginPath();g.moveTo(30,118);
+  for(let n=0;n<9;n++)g.quadraticCurveTo(70+n*100,168,120+n*100,124);
+  g.stroke();
+  for(let n=0;n<8;n++){
+    g.fillStyle=['#ff5a7a','#ffb020','#7dffb3','#7ecbff'][n%4];
+    g.beginPath();g.arc(90+n*105,156,11,0,7);g.fill();
+  }
+  g.fillStyle='#c4552a';g.fillRect(70,292,560,46);
+  g.fillStyle='#5c2e1a';g.fillRect(70,338,560,150);
+  g.fillStyle='#2a0a12';g.fillRect(90,214,150,64);
+  txt('夜市',118,258,40,'#ffd36a');
+  for(const p of steam){
+    g.fillStyle='rgba(255,244,220,.35)';
+    g.beginPath();g.arc(p.x,p.y,p.r,0,7);g.fill();
+  }
+  if(G.state!=='title')dish(snacks[G.i%3]);
+  unicorn();
+  for(const b of bits){
+    if(b.life<=0)continue;
+    g.fillStyle='hsl('+b.h+',90%,60%)';
+    g.globalAlpha=Math.max(0,Math.min(1,b.life));
+    g.beginPath();g.arc(b.x,b.y,12,0,7);g.fill();
+    g.globalAlpha=1;
+  }
+  txt('分數 '+G.score,24,40,22,'#ffe6c2');
+  txt('彩虹勇氣',250,36,18,'#ffe6c2');
+  for(let n=0;n<10;n++){
+    g.fillStyle=n<Math.ceil(G.courage/10)?['#f44','#f80','#fd4','#6e4','#4cf','#a4f','#f6f','#f66','#fa4','#ff4'][n]:'#3a2a38';
+    g.fillRect(380+n*22,18,16,16);
+  }
+  if(G.state==='cook'||G.state==='beat'){
+    const s=snacks[G.i%3];
+    txt(s.n,70,430,36,'#fff4d2');
+    txt(Math.max(0,Math.ceil(G.time))+' 秒',470,430,28,'#ffd36a');
+    const bx=70,by=470,bw=520,bh=28;
+    g.fillStyle='#2a2030';g.fillRect(bx,by,bw,bh);
+    g.fillStyle='#3ecf7a';g.fillRect(bx+s.a*bw,by,(s.b-s.a)*bw,bh);
+    g.fillStyle='#fff';g.fillRect(bx+G.pos*bw-4,by-8,8,bh+16);
+    if(G.msg)txt(G.msg,250,400,28,G.mood==='ok'?'#b6ff9a':'#ffb0c8');
+  }
+  if(G.state==='title'){
+    txt('獨角獸夜市',340,410,52,'#fff6e4','center');
+    txt('按空白鍵或點畫面，在標記進入區間時端出',340,458,20,'#ffd6a8','center');
+  }
+  if(G.state==='over'){
+    g.fillStyle='rgba(16,6,20,.72)';g.fillRect(180,150,600,250);
+    txt('收攤',480,230,48,'#fff6e4','center');
+    txt('分數 '+G.score,480,290,32,'#ffd36a','center');
+    txt('再來一局',480,350,28,'#fff','center');
+  }
+}
+let last=0;
+function loop(t){
+  const dt=Math.min(.05,last?(t-last)/1000:0);last=t;
+  tick(dt);draw();requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
